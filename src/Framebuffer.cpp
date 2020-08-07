@@ -36,7 +36,7 @@ void Framebuffer::Invalidate()
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, m_gl_color_attachment, 0);
 
 	if (glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE)
-		std::cout << "[OPENGL] Error creating framebuffer\n";
+		std::cout << "[OPENGL] Error creating framebuffer with width " << m_width << " and height " << m_height << std::endl;
 
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }

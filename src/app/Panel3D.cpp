@@ -15,19 +15,17 @@ void Panel3D::UpdateCamera()
 	m_camera->LookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 }
 
-Panel3D::Panel3D(const std::string& name, const glm::vec3& clearColor) : Panel(name, clearColor)
+Panel3D::Panel3D(const std::string& name, const glm::vec3& clearColor) : DisplayPanel(name, clearColor)
 {
 	CameraSpecs ss;
 	ss.perspective = true;
 	m_camera = new Camera(ss);
 	m_distance = 3.19f;
-	m_gimbal.LookAt(glm::vec3(0.0, 0.0, 1.0), glm::vec3(0.0, 1.0, 0.0));
+	m_gimbal.SetRotation(glm::fquat(m_gimbalRot));
 	UpdateCamera();
 
 	m_shader.CreateFromFiles("assets/shaders/vert.glsl", "assets/shaders/frag.glsl");
 	m_shader.Bind();
-	float theColor[4] = { 0.1, 0.1, 0.9, 1.0 };
-	m_shader.SetUniform4fv("u_Color", theColor);
 
 	// 1. bind Vertex Array Object
 	glGenVertexArrays(1, &m_VAO);
@@ -79,6 +77,12 @@ void Panel3D::Draw()
 
 	m_shader.Bind();
 	m_shader.SetUniformMatrix4fv("u_Mat", (float*)(&(m_camera->GetMatrix())));
+	m_shader.SetUniform4fv("u_Color", &m_cubeColor.x);
 	glBindVertexArray(m_VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 3*2*6);
+}
+
+float* Panel3D::GetCubeColorReference()
+{
+	return &m_cubeColor.x;
 }

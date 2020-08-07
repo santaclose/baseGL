@@ -6,7 +6,7 @@
 #define MAX_CAMERA_SIZE 30
 #define MIN_CAMERA_SIZE 2
 
-Panel2D::Panel2D(const std::string& name, const glm::vec3& clearColor) : Panel(name, clearColor)
+Panel2D::Panel2D(const std::string& name, const glm::vec3& clearColor) : DisplayPanel(name, clearColor)
 {
 	CameraSpecs ss;
 	ss.perspective = false;
@@ -15,8 +15,6 @@ Panel2D::Panel2D(const std::string& name, const glm::vec3& clearColor) : Panel(n
 
 	m_shader.CreateFromFiles("assets/shaders/vert.glsl", "assets/shaders/frag.glsl");
 	m_shader.Bind();
-	float theColor[4] = { 0.9, 0.1, 0.1, 1.0 };
-	m_shader.SetUniform4fv("u_Color", theColor);
 
 	// 1. bind Vertex Array Object
 	glGenVertexArrays(1, &m_VAO);
@@ -65,6 +63,12 @@ void Panel2D::Draw()
 
 	m_shader.Bind();
 	m_shader.SetUniformMatrix4fv("u_Mat", (float*)(&(m_camera->GetMatrix())));
+	m_shader.SetUniform4fv("u_Color", &m_squareColor.x);
 	glBindVertexArray(m_VAO);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
+}
+
+float* Panel2D::GetSquareColorReference()
+{
+	return &m_squareColor.x;
 }

@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <examples/imgui_impl_glfw.h>
 #include <examples/imgui_impl_opengl3.h>
-#include "Application.h"
+#include "app/Application.h"
 
 uint32_t windowWidth = 1280;
 uint32_t windowHeight = 720;
@@ -117,9 +117,7 @@ int main()
 			ImGui::End();
 			//////////////////
 			// Panel rendering
-			ImGui::PushStyleVar(ImGuiStyleVar_WindowPadding, ImVec2(0, 0));
 			Application::OnUpdate(io);
-			ImGui::PopStyleVar();
 		}
 
 		ImGui::Render();
