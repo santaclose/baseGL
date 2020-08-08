@@ -1,4 +1,3 @@
--- OpenGL-Sandbox
 workspace "baseGL"
 	architecture "x64"
 	startproject "baseGL"
