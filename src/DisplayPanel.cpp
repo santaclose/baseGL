@@ -4,8 +4,6 @@
 #include <cstdint>
 #include "ImVec2Operators.h"
 
-DisplayPanel* DisplayPanel::inputHandlingRetained = nullptr;
-
 DisplayPanel::DisplayPanel(const std::string& name, const glm::vec3& clearColor) : Panel(name)
 {
 	m_clearColor = clearColor;

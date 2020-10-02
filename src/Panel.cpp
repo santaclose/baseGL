@@ -5,6 +5,7 @@
 #include "ImVec2Operators.h"
 
 std::vector<Panel*> Panel::all;
+Panel* Panel::inputHandlingRetained = nullptr;
 
 Panel::Panel(const std::string& name)
 {

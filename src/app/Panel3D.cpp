@@ -15,7 +15,7 @@ void Panel3D::UpdateCamera()
 	m_camera->LookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 }
 
-Panel3D::Panel3D(const std::string& name, const glm::vec3& clearColor) : DisplayPanel(name, clearColor)
+Panel3D::Panel3D(const std::string& name, const glm::vec3& clearColor) : DisplayPanelMSAA(name, clearColor)
 {
 	CameraSpecs ss;
 	ss.perspective = true;

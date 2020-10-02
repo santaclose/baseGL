@@ -9,6 +9,7 @@ class Panel
 {
 protected:
 	std::string m_name;
+	static Panel* inputHandlingRetained;
 
 public:
 	static std::vector<Panel*> all;

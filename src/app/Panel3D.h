@@ -1,9 +1,9 @@
 #pragma once
-#include "DisplayPanel.h"
+#include "DisplayPanelMSAA.h"
 #include "Shader.h"
 #include "Camera.h"
 
-class Panel3D : public DisplayPanel
+class Panel3D : public DisplayPanelMSAA
 {
     //cube
 	float m_vertices[18*6] = {
