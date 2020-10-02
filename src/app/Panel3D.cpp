@@ -54,6 +54,7 @@ void Panel3D::HandleInput(const ImGuiIO& io, const glm::vec2& relativeMousePos)
 
 	if (io.MouseDown[2])
 	{
+		inputHandlingRetained = this;
 		m_gimbalRot.y -= io.MouseDelta.x * SENSITIVITY;
 		m_gimbalRot.x += io.MouseDelta.y * SENSITIVITY;
 
@@ -63,6 +64,10 @@ void Panel3D::HandleInput(const ImGuiIO& io, const glm::vec2& relativeMousePos)
 			m_gimbalRot.x = -CAMERA_LIMIT;
 
 		m_gimbal.SetRotation(glm::fquat(m_gimbalRot));
+	}
+	else
+	{
+		inputHandlingRetained = nullptr;
 	}
 	UpdateCamera();
 }

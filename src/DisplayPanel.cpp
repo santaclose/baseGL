@@ -4,6 +4,8 @@
 #include <cstdint>
 #include "ImVec2Operators.h"
 
+DisplayPanel* DisplayPanel::inputHandlingRetained = nullptr;
+
 DisplayPanel::DisplayPanel(const std::string& name, const glm::vec3& clearColor) : Panel(name)
 {
 	m_clearColor = clearColor;
@@ -13,7 +15,14 @@ void DisplayPanel::ImGuiCall(const ImGuiIO& io)
 {
 	ImGui::Begin(m_name.c_str());
 
-	if (/*ImGui::IsWindowFocused() && */ImGui::IsMouseHoveringRect(ImGui::GetWindowContentRegionMin() + ImGui::GetWindowPos(), ImGui::GetWindowContentRegionMax() + ImGui::GetWindowPos()))
+	if (inputHandlingRetained == nullptr &&
+		/*ImGui::IsWindowFocused() && */
+		ImGui::IsMouseHoveringRect(
+			ImGui::GetWindowContentRegionMin() + ImGui::GetWindowPos(),
+			ImGui::GetWindowContentRegionMax() + ImGui::GetWindowPos())
+		||
+		inputHandlingRetained == this)
+
 	{
 		ImVec2 mousePos = io.MousePos - ImGui::GetWindowContentRegionMin() - ImGui::GetWindowPos();
 		HandleInput(io, *((glm::vec2*)&mousePos));

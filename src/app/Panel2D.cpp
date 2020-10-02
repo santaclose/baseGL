@@ -43,6 +43,7 @@ void Panel2D::HandleInput(const ImGuiIO& io, const glm::vec2& relativeMousePos)
 
 	if (io.MouseDown[2])
 	{
+		inputHandlingRetained = this;
 		float pixelsToWorldFactor;
 		if (m_camera->m_specs.aspectRatio >= 1.0)
 			pixelsToWorldFactor = m_camera->m_specs.orthographicScale / m_size.y;
@@ -50,6 +51,10 @@ void Panel2D::HandleInput(const ImGuiIO& io, const glm::vec2& relativeMousePos)
 			pixelsToWorldFactor = m_camera->m_specs.orthographicScale / m_size.x;
 
 		m_camera->SetPosition(m_camera->GetPosition() + glm::vec3(-io.MouseDelta.x * pixelsToWorldFactor, io.MouseDelta.y * pixelsToWorldFactor, 0.0));
+	}
+	else
+	{
+		inputHandlingRetained = nullptr;
 	}
 }
 

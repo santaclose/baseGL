@@ -11,6 +11,7 @@ protected:
 	glm::vec3 m_clearColor;
 	glm::vec2 m_size = { 0, 0 };
 	Framebuffer m_frameBuffer = Framebuffer(0, 0);
+	static DisplayPanel* inputHandlingRetained;
 
 public:
 	DisplayPanel(const std::string& name, const glm::vec3& clearColor);
