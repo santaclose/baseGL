@@ -15,13 +15,6 @@ workspace "baseGL"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
-IncludeDir = {}
-IncludeDir["GLFW"] = "vendor/GLFW/include"
-IncludeDir["Glad"] = "vendor/Glad/include"
-IncludeDir["ImGui"] = "vendor/imgui"
-IncludeDir["glm"] = "vendor/glm"
-IncludeDir["stb_image"] = "vendor/stb_image"
-
 -- Projects
 group "Dependencies"
 	include "vendor/GLFW"
@@ -57,11 +50,11 @@ project "baseGL"
 	{
 		"src",
 		"vendor/spdlog/include",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"vendor/GLFW/include",
+		"vendor/Glad/include",
+		"vendor/imgui",
+		"vendor/glm",
+		"vendor/stb_image"
 	}
 
 	links 

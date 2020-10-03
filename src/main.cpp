@@ -6,8 +6,8 @@
 #include <examples/imgui_impl_opengl3.h>
 #include "app/Application.h"
 
-uint32_t windowWidth = 1280;
-uint32_t windowHeight = 720;
+uint32_t windowWidth = APPLICATION_WIDTH;
+uint32_t windowHeight = APPLICATION_HEIGHT;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
@@ -31,7 +31,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, "baseGL", NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, APPLICATION_NAME, NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;

@@ -3,7 +3,6 @@
 #include <string>
 #include <vector>
 #include "Framebuffer.h"
-#include "app/Application.h"
 
 class Panel
 {
