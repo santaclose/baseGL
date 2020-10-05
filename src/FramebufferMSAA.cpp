@@ -52,7 +52,8 @@ void FramebufferMSAA::Resize(uint32_t width, uint32_t height)
 void FramebufferMSAA::SetSamples(uint32_t samples)
 {
 	m_samples = samples;
-	Invalidate();
+	if (m_width > 0 && m_height > 0)
+		Invalidate();
 }
 
 void FramebufferMSAA::Bind(bool readOnly)
