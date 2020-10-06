@@ -74,9 +74,6 @@ void Panel3D::HandleInput(const ImGuiIO& io, const glm::vec2& relativeMousePos)
 
 void Panel3D::Draw()
 {
-	glClearColor(m_clearColor.x, m_clearColor.y, m_clearColor.z, 1.0);
-	glClear(GL_COLOR_BUFFER_BIT);
-
 	m_camera->Bind();
 	m_camera->ComputeMatrices();
 

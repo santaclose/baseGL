@@ -49,6 +49,7 @@ project "baseGL"
 	includedirs
 	{
 		"src",
+		"src/app",
 		"vendor/spdlog/include",
 		"vendor/GLFW/include",
 		"vendor/Glad/include",
