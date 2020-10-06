@@ -4,7 +4,7 @@
 #include <cstdint>
 #include <examples/imgui_impl_glfw.h>
 #include <examples/imgui_impl_opengl3.h>
-#include "app/Application.h"
+#include <Application.h>
 
 uint32_t windowWidth = APPLICATION_WIDTH;
 uint32_t windowHeight = APPLICATION_HEIGHT;
@@ -61,7 +61,11 @@ int main()
 	ImGuiIO& io = ImGui::GetIO();
 
 	// Setup Dear ImGui style
+#ifdef APPLICATION_DARK_STYLE
 	ImGui::StyleColorsDark();
+#else
+	ImGui::StyleColorsLight();
+#endif
 
 	auto f = io.Fonts->AddFontFromFileTTF("assets/fonts/FiraCode/FiraCode-Regular.ttf", 14.0f);
 	io.FontDefault = f;

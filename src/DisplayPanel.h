@@ -10,10 +10,11 @@ class DisplayPanel : public Panel
 protected:
 	glm::vec3 m_clearColor;
 	glm::vec2 m_size = { 0, 0 };
-	Framebuffer m_frameBuffer = Framebuffer(0, 0);
+	Framebuffer* m_frameBuffer = nullptr;
+	bool m_includeDepth = false;
 
 public:
-	DisplayPanel(const std::string& name, const glm::vec3& clearColor);
+	DisplayPanel(const std::string& name, const glm::vec3& clearColor, bool includeDepth = false);
 	void ImGuiCall(const ImGuiIO& io) override;
 
 protected:
