@@ -20,6 +20,7 @@ group "Dependencies"
 	include "vendor/GLFW"
 	include "vendor/Glad"
 	include "vendor/imgui"
+	include "vendor/msdf-atlas-gen"
 group ""
 
 project "baseGL"
@@ -35,8 +36,8 @@ project "baseGL"
 	{
 		"src/**.h",
 		"src/**.cpp",
-		"vendor/stb_image/**.h",
-		"vendor/stb_image/**.cpp",
+		"vendor/stb/**.h",
+		"vendor/stb/**.cpp",
 		"vendor/glm/glm/**.hpp",
 		"vendor/glm/glm/**.inl",
 	}
@@ -55,7 +56,9 @@ project "baseGL"
 		"vendor/Glad/include",
 		"vendor/imgui",
 		"vendor/glm",
-		"vendor/stb_image"
+		"vendor/stb",
+		"vendor/msdf-atlas-gen",
+		"vendor/msdf-atlas-gen/msdfgen"
 	}
 
 	links 
@@ -63,7 +66,8 @@ project "baseGL"
 		"GLFW",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		"opengl32.lib",
+		"msdf-atlas-gen"
 	}
 
 	filter "system:windows"

@@ -46,6 +46,8 @@ void DisplayPanel::ImGuiCall(const ImGuiIO& io)
 	{
 		glDisable(GL_DEPTH_TEST);
 	}
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	glClearColor(m_clearColor.x, m_clearColor.y, m_clearColor.z, 1.0);
 	glClear(clearValue);
 	Draw();

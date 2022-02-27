@@ -17,6 +17,8 @@ void Application::Init()
 	propertiesPanel->cubeColorRef = panel3d->GetCubeColorReference();
 	propertiesPanel->squareColorRef = panel2d->GetSquareColorReference();
 	propertiesPanel->panel3d = panel3d;
+
+	panel2d->textToDrawBuffer = propertiesPanel->GetTextInputBuffer();
 }
 
 void Application::OnUpdate(const ImGuiIO& io)

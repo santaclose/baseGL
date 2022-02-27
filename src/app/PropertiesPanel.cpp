@@ -18,5 +18,7 @@ void PropertiesPanel::ImGuiCall(const ImGuiIO& io)
 		panel3d->SetSamples((uint32_t)currentMsaaCount);
 	}
 
+	ImGui::InputText("Input Text", textInputBuffer, 256);
+
 	ImGui::End();
 }

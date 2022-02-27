@@ -23,4 +23,9 @@ public:
 	void SetUniform3fv(const std::string& name, const float* pointer);
 	void SetUniform4fv(const std::string& name, const float* pointer);
 	void SetUniform1i(const std::string& name, const int value);
+
+	inline bool IsInitialized()
+	{
+		return m_gl_id != -1;
+	}
 };

@@ -1,10 +1,15 @@
-#include "Panel2D.h"
+﻿#include "Panel2D.h"
 #include <glad/glad.h>
 #include <iostream>
 #include <cstdint>
+#include <string>
 
-#define MAX_CAMERA_SIZE 30
-#define MIN_CAMERA_SIZE 2
+#include "Renderer.h"
+
+#include <Font.h>
+
+#define MAX_CAMERA_SIZE 100.0f
+#define MIN_CAMERA_SIZE 1.0f
 
 Panel2D::Panel2D(const std::string& name, const glm::vec3& clearColor) : DisplayPanel(name, clearColor)
 {
@@ -13,24 +18,14 @@ Panel2D::Panel2D(const std::string& name, const glm::vec3& clearColor) : Display
 	m_camera = new Camera(ss);
 	m_camera->SetPosition(0.0, 0.0, 1.0);
 
-	m_shader.CreateFromFiles("assets/shaders/vert.glsl", "assets/shaders/frag.glsl");
-	m_shader.Bind();
-
-	// 1. bind Vertex Array Object
-	glGenVertexArrays(1, &m_VAO);
-	glGenBuffers(1, &m_VBO);
-	glBindVertexArray(m_VAO);
-	// 2. copy our vertices array in a buffer for OpenGL to use
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, GL_STATIC_DRAW);
-	// 3. then set our vertex attributes pointers
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
+	m_fontId = Renderer::CreateFont("assets/fonts/FiraCode/FiraCode-Regular.ttf");
+	//m_fontId = Renderer::CreateFont("assets/fonts/arial.ttf");
 }
 
 void Panel2D::OnResize()
 {
 	m_camera->m_specs.aspectRatio = m_size.x / m_size.y;
+	Renderer::UpdateWindowSize(m_size);
 }
 
 void Panel2D::HandleInput(const ImGuiIO& io, const glm::vec2& relativeMousePos)
@@ -63,11 +58,18 @@ void Panel2D::Draw()
 	m_camera->Bind();
 	m_camera->ComputeMatrices();
 
-	m_shader.Bind();
-	m_shader.SetUniformMatrix4fv("u_Mat", (float*)(&(m_camera->GetMatrix())));
-	m_shader.SetUniform4fv("u_Color", &m_squareColor.x);
-	glBindVertexArray(m_VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 6);
+	Renderer::SetMatrix((float*)(&(m_camera->GetMatrix())));
+	//Renderer::DrawText(m_fontId, textToDrawBuffer, &m_squareColor.x, true, { center.x, center.y }, 11.0f);
+	//Renderer::DrawText(m_fontId, textToDrawBuffer, &m_squareColor.x, false);
+
+#define K 1.35
+	glm::vec2 center = { 0.0f, 0.0f };
+	Renderer::DrawText(m_fontId, textToDrawBuffer, &m_squareColor.x, false, { center.x, center.y }, 1.0);
+	Renderer::DrawText(m_fontId, textToDrawBuffer, &m_squareColor.x, false, { center.x, center.y + K }, 0.5);
+	Renderer::DrawText(m_fontId, textToDrawBuffer, &m_squareColor.x, false, { center.x, center.y + K + K * 0.5 }, 0.25);
+	Renderer::DrawText(m_fontId, textToDrawBuffer, &m_squareColor.x, false, { center.x, center.y + K + K * 0.5 + K * 0.25 }, 0.125);
+	Renderer::DrawText(m_fontId, textToDrawBuffer, &m_squareColor.x, false, { center.x, center.y + K + K * 0.5 + K * 0.25 + K * 0.125 }, 0.0625);
+#undef K
 }
 
 float* Panel2D::GetSquareColorReference()

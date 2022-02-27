@@ -3,6 +3,8 @@
 #include <iostream>
 #include <cstdint>
 
+#include "Renderer.h"
+
 #define SENSITIVITY 0.01f
 #define MAX_DISTANCE 7.0f
 #define MIN_DISTANCE 2.0f
@@ -15,7 +17,7 @@ void Panel3D::UpdateCamera()
 	m_camera->LookAt(glm::vec3(0.0, 0.0, 0.0), glm::vec3(0.0, 1.0, 0.0));
 }
 
-Panel3D::Panel3D(const std::string& name, const glm::vec3& clearColor) : DisplayPanelMSAA(name, clearColor)
+Panel3D::Panel3D(const std::string& name, const glm::vec3& clearColor) : DisplayPanelMSAA(name, clearColor, 8)
 {
 	CameraSpecs ss;
 	ss.perspective = true;
@@ -23,20 +25,6 @@ Panel3D::Panel3D(const std::string& name, const glm::vec3& clearColor) : Display
 	m_distance = 3.19f;
 	m_gimbal.SetRotation(glm::fquat(m_gimbalRot));
 	UpdateCamera();
-
-	m_shader.CreateFromFiles("assets/shaders/vert.glsl", "assets/shaders/frag.glsl");
-	m_shader.Bind();
-
-	// 1. bind Vertex Array Object
-	glGenVertexArrays(1, &m_VAO);
-	glGenBuffers(1, &m_VBO);
-	glBindVertexArray(m_VAO);
-	// 2. copy our vertices array in a buffer for OpenGL to use
-	glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(m_vertices), m_vertices, GL_STATIC_DRAW);
-	// 3. then set our vertex attributes pointers
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
-	glEnableVertexAttribArray(0);
 }
 
 void Panel3D::OnResize()
@@ -77,11 +65,8 @@ void Panel3D::Draw()
 	m_camera->Bind();
 	m_camera->ComputeMatrices();
 
-	m_shader.Bind();
-	m_shader.SetUniformMatrix4fv("u_Mat", (float*)(&(m_camera->GetMatrix())));
-	m_shader.SetUniform4fv("u_Color", &m_cubeColor.x);
-	glBindVertexArray(m_VAO);
-	glDrawArrays(GL_TRIANGLES, 0, 3*2*6);
+	Renderer::SetMatrix((float*)(&(m_camera->GetMatrix())));
+	Renderer::DrawCube(&m_cubeColor.x);
 }
 
 float* Panel3D::GetCubeColorReference()
