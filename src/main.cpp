@@ -6,13 +6,13 @@
 #include <examples/imgui_impl_opengl3.h>
 #include <Application.h>
 
-uint32_t windowWidth = APPLICATION_WIDTH;
-uint32_t windowHeight = APPLICATION_HEIGHT;
+uint32_t appWindowWidth = APPLICATION_WIDTH;
+uint32_t appWindowHeight = APPLICATION_HEIGHT;
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
-	windowWidth = width;
-	windowHeight = height;
+	appWindowWidth = width;
+	appWindowHeight = height;
 }
 
 void processInput(GLFWwindow *window)
@@ -31,7 +31,7 @@ int main()
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
-	GLFWwindow* window = glfwCreateWindow(windowWidth, windowHeight, APPLICATION_NAME, NULL, NULL);
+	GLFWwindow* window = glfwCreateWindow(appWindowWidth, appWindowHeight, APPLICATION_NAME, NULL, NULL);
 	if (window == NULL)
 	{
 		std::cout << "Failed to create GLFW window" << std::endl;
@@ -45,7 +45,7 @@ int main()
 		std::cout << "Failed to initialize GLAD" << std::endl;
 		return -1;
 	}
-	glViewport(0, 0, windowWidth, windowHeight);
+	glViewport(0, 0, appWindowWidth, appWindowHeight);
 	glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
 
 	glClearColor(0.4, 0.4, 0.4, 1.0);
@@ -84,7 +84,7 @@ int main()
 
 	while(!glfwWindowShouldClose(window))
 	{
-		glViewport(0, 0, windowWidth, windowHeight);
+		glViewport(0, 0, appWindowWidth, appWindowHeight);
 		glClearColor(0.4, 0.4, 0.4, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 

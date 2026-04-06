@@ -28,7 +28,8 @@ void DisplayPanelMSAA::ImGuiCall(const ImGuiIO& io)
 		ImVec2 mousePos = io.MousePos - ImGui::GetWindowContentRegionMin() - ImGui::GetWindowPos();
 		HandleInput(io, *((glm::vec2*) & mousePos));
 	}
-	glm::vec2 currentSize = *((glm::vec2*) & ImGui::GetContentRegionAvail());
+	ImVec2 contentRegionAvail = ImGui::GetContentRegionAvail();
+	glm::vec2 currentSize = glm::vec2(contentRegionAvail.x, contentRegionAvail.y);
 	if (currentSize != m_size)
 	{
 		m_size = currentSize;
