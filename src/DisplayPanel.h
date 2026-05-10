@@ -11,11 +11,15 @@ protected:
 	glm::vec3 m_clearColor;
 	glm::vec2 m_size = { 0, 0 };
 	Framebuffer* m_frameBuffer = nullptr;
+	Framebuffer* m_frameBufferMSAA = nullptr;
 	bool m_includeDepth = false;
+	uint32_t m_samples = 0;
 
 public:
-	DisplayPanel(const std::string& name, const glm::vec3& clearColor, bool includeDepth = false);
+	DisplayPanel(const std::string& name, const glm::vec3& clearColor, uint32_t samples = 4, bool includeDepth = true);
+	~DisplayPanel();
 	void ImGuiCall(const ImGuiIO& io) override;
+	void SetSamples(uint32_t samples);
 
 protected:
 	virtual void OnResize() = 0;

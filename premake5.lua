@@ -1,23 +1,19 @@
 workspace "baseGL"
 	architecture "x64"
 	startproject "baseGL"
+	multiprocessorcompile "On"
 
 	configurations
 	{
 		"Debug",
 		"Release"
 	}
-	
-	flags
-	{
-		"MultiProcessorCompile"
-	}
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
 -- Projects
 group "Dependencies"
-	include "vendor/GLFW"
+	include "vendor/glfw"
 	include "vendor/Glad"
 	include "vendor/imgui"
 group ""
@@ -51,7 +47,7 @@ project "baseGL"
 		"src",
 		"src/app",
 		"vendor/spdlog/include",
-		"vendor/GLFW/include",
+		"vendor/glfw/include",
 		"vendor/Glad/include",
 		"vendor/imgui",
 		"vendor/glm",
@@ -60,10 +56,10 @@ project "baseGL"
 
 	links 
 	{ 
-		"GLFW",
+		"glfw",
 		"Glad",
 		"ImGui",
-		"opengl32.lib"
+		-- "opengl32.lib"
 	}
 
 	filter "system:windows"

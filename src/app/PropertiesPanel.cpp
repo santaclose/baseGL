@@ -9,9 +9,9 @@ void PropertiesPanel::ImGuiCall(const ImGuiIO& io)
 	ImGui::SliderFloat3("Cube Color", cubeColorRef, 0.0f, 1.0f);
 
 	int lastMsaaCount = currentMsaaCount;
-	ImGui::SliderInt("MSAA Count", &currentMsaaCount, 2, 8);
+	ImGui::SliderInt("MSAA Count", &currentMsaaCount, 1, 8);
 	if (
-		(currentMsaaCount == 2 || currentMsaaCount == 4 || currentMsaaCount == 8) &&
+		(currentMsaaCount == 1 || currentMsaaCount == 2 || currentMsaaCount == 4 || currentMsaaCount == 8) &&
 		currentMsaaCount != lastMsaaCount
 		)
 	{

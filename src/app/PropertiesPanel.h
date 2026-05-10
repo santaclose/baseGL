@@ -8,7 +8,7 @@ class PropertiesPanel : public Panel
 public:
 	float* squareColorRef;
 	float* cubeColorRef;
-	DisplayPanelMSAA* panel3d;
+	DisplayPanel* panel3d;
 	int currentMsaaCount = 4;
 
 	PropertiesPanel(const std::string& name);
