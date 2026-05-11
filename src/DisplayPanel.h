@@ -9,7 +9,7 @@ class DisplayPanel : public Panel
 {
 protected:
 	glm::vec3 m_clearColor;
-	glm::vec2 m_size = { 0, 0 };
+	glm::uvec2 m_size = { 0, 0 };
 	Framebuffer* m_frameBuffer = nullptr;
 	Framebuffer* m_frameBufferMSAA = nullptr;
 	bool m_includeDepth = false;

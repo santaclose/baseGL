@@ -30,7 +30,7 @@ Panel2D::Panel2D(const std::string& name, const glm::vec3& clearColor) : Display
 
 void Panel2D::OnResize()
 {
-	m_camera->m_specs.aspectRatio = m_size.x / m_size.y;
+	m_camera->m_specs.aspectRatio = (float) m_size.x / (float) m_size.y;
 }
 
 void Panel2D::HandleInput(const ImGuiIO& io, const glm::vec2& relativeMousePos)

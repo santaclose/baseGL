@@ -39,14 +39,17 @@ void DisplayPanel::ImGuiCall(const ImGuiIO& io)
 		glm::vec2 mp = glm::vec2(mousePos.x, mousePos.y);
 		HandleInput(io, mp);
 	}
-	ImVec2 contentRegionAvail = ImGui::GetContentRegionAvail();
-	glm::vec2 currentSize = glm::vec2(contentRegionAvail.x, contentRegionAvail.y);
+	ImVec2 avail = ImGui::GetContentRegionAvail();
+	glm::uvec2 currentSize(
+		std::max(0, (int)avail.x),
+		std::max(0, (int)avail.y)
+	);
 	if (currentSize != m_size)
 	{
 		m_size = currentSize;
 		if (m_samples > 1)
-			m_frameBufferMSAA->Resize((uint32_t)m_size.x, (uint32_t)m_size.y);
-		m_frameBuffer->Resize((uint32_t) m_size.x, (uint32_t) m_size.y);
+			m_frameBufferMSAA->Resize(m_size.x, m_size.y);
+		m_frameBuffer->Resize(m_size.x, m_size.y);
 		OnResize();
 	}
 	if (m_samples > 1)
@@ -73,14 +76,15 @@ void DisplayPanel::ImGuiCall(const ImGuiIO& io)
 
 		m_frameBuffer->Bind(GL_DRAW_FRAMEBUFFER);
 		m_frameBufferMSAA->Bind(GL_READ_FRAMEBUFFER);
-		glBlitFramebuffer(0, 0, (uint32_t)m_size.x, (uint32_t)m_size.y, 0, 0, (uint32_t)m_size.x, (uint32_t)m_size.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
+		glBlitFramebuffer(0, 0, m_size.x, m_size.y, 0, 0, m_size.x, m_size.y, GL_COLOR_BUFFER_BIT, GL_NEAREST);
 		m_frameBufferMSAA->Unbind(GL_READ_FRAMEBUFFER);
 		m_frameBuffer->Unbind(GL_DRAW_FRAMEBUFFER);
 	}
 	else
 		m_frameBuffer->Unbind();
 	uint32_t textureID = m_frameBuffer->getColorAttachmentID();
-	ImGui::Image((void*)textureID, *((ImVec2*) &m_size), ImVec2(0, 1), ImVec2(1, 0));
+	ImVec2 sizeFloats = { (float) m_size.x, (float) m_size.y };
+	ImGui::Image((void*)textureID, sizeFloats, ImVec2(0, 1), ImVec2(1, 0));
 	ImGui::End();
 }
 

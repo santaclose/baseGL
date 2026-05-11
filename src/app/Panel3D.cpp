@@ -41,7 +41,7 @@ Panel3D::Panel3D(const std::string& name, const glm::vec3& clearColor) : Display
 
 void Panel3D::OnResize()
 {
-	m_camera->m_specs.aspectRatio = m_size.x / m_size.y;
+	m_camera->m_specs.aspectRatio = (float) m_size.x / (float) m_size.y;
 }
 
 void Panel3D::HandleInput(const ImGuiIO& io, const glm::vec2& relativeMousePos)
